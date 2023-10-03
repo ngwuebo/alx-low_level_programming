@@ -2,10 +2,10 @@
 #define MAIN_H
 
 /*
- * File: holberton.h
- * Auth: Godswill Kalu
- * Desc: Header file containing prototypes for all functions
- *       written in the 0x14-file_io directory.
+ * File: alx.h
+ * Auth: Ngwuebo Nathaniel
+ * Desc: The Header file contains prototypes for all functions
+ * inside 0x14-file_io directory.
  */
 
 #include <sys/types.h>
