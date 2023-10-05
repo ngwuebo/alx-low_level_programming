@@ -1,10 +1,10 @@
 #include "main.h"
 #include <stdlib.h>
 
-/* read and print a text file */
+/* read and print a text file to stdout */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	ssize_t fd, rd, wr;
+	ssize_t fd, bytes_read, bytes_written;
 	char *buffer;
 
 	if (filename == NULL)
@@ -15,10 +15,10 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		return (0);
 
 	fd = open(filename, O_RDONLY);
-	rd = read(fd, buffer, letters);
-	wr = write(STDOUT_FILENO, buffer, rd);
+	bytes_read = read(fd, buffer, letters);
+	bytes_written = write(STDOUT_FILENO, buffer, bytes_read);
 
-	if (fd == -1 || rd == -1 || wr == -1 || wr != rd)
+	if (fd == -1 || bytes_read == -1 || bytes_written == -1 || bytes_written != bytes_read)
 	{
 		free(buffer);
 		return (0);
@@ -27,5 +27,5 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	free(buffer);
 	close(fd);
 
-	return (wr);
+	return (bytes_written);
 }
