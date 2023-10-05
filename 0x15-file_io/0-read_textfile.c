@@ -1,10 +1,18 @@
 #include "main.h"
 #include <stdlib.h>
 
-/* read and print a text file to stdout */
+/**
+ * read_textfile - Reads a text file and prints it to POSIX stdout.
+ * @filename: A pointer to the name of the file.
+ * @letters: The number of letters the
+ *           function should read and print.
+ *
+ * Return: If the function fails or filename is NULL - 0.
+ *         O/w - the actual number of bytes the function can read and print.
+ */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	ssize_t fd, bytes_read, bytes_written;
+	ssize_t o, r, w;
 	char *buffer;
 
 	if (filename == NULL)
@@ -14,18 +22,18 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	if (buffer == NULL)
 		return (0);
 
-	fd = open(filename, O_RDONLY);
-	bytes_read = read(fd, buffer, letters);
-	bytes_written = write(STDOUT_FILENO, buffer, bytes_read);
+	o = open(filename, O_RDONLY);
+	r = read(o, buffer, letters);
+	w = write(STDOUT_FILENO, buffer, r);
 
-	if (fd == -1 || bytes_read == -1 || bytes_written == -1 || bytes_written != bytes_read)
+	if (o == -1 || r == -1 || w == -1 || w != r)
 	{
 		free(buffer);
 		return (0);
 	}
 
 	free(buffer);
-	close(fd);
+	close(o);
 
-	return (bytes_written);
+	return (w);
 }
